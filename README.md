@@ -13,6 +13,11 @@
 1. Chromeで[Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=ja)をインストール
 2. [userscript](https://raw.githubusercontent.com/iwamizawa-software/monachatjp-userscript/master/monachatjp.user.js)をインストール
 
+## 導入するとどうなるのか
+
+- Googleに飛ばされるバグが消える
+- コピーできるログが表示されて、URLをダブルクリックで開くことができる
+
 ## 開発者向けの説明
 
 このuserscriptを導入すると、window.openやiframeを使ってもなちゃとを表示することで、データの送受信ができるようになります。

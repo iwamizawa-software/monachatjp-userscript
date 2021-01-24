@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     monachatjp-userscript
-// @version  1
+// @version  2
 // @run-at document-start
 // @grant    none
 // @match        https://monachat.jp/
@@ -22,7 +22,7 @@
   log.ondblclick = function () {
     var url = log.value.slice(Math.max(0, log.value.lastIndexOf('\n', log.selectionStart)), Math.max(0, log.value.indexOf('\n', log.selectionStart))).match(/https?:\/\/[\S]+/);
     if (url)
-      open(url[0]);
+      open(url[0], '_blank', 'noopener');
   };
   var tempLog = [];
   var addLog = function (s) {
