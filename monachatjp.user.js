@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     monachatjp-userscript
-// @version  2
+// @version  3
 // @run-at document-start
 // @grant    none
 // @match        https://monachat.jp/
@@ -20,7 +20,7 @@
   log.style.height = '200px';
   log.readOnly = true;
   log.ondblclick = function () {
-    var url = log.value.slice(Math.max(0, log.value.lastIndexOf('\n', log.selectionStart)), Math.max(0, log.value.indexOf('\n', log.selectionStart))).match(/https?:\/\/[\S]+/);
+    var url = log.value.slice(Math.max(0, log.value.lastIndexOf('\n', log.selectionStart)), Math.max(log.value.length, log.value.indexOf('\n', log.selectionStart))).match(/https?:\/\/[\S]+/);
     if (url)
       open(url[0], '_blank', 'noopener');
   };
