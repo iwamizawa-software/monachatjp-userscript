@@ -1,18 +1,19 @@
 // ==UserScript==
 // @name     monachatjp-userscript
-// @version  3
+// @version  4
 // @run-at document-start
 // @grant    none
 // @match        https://monachat.jp/
+// @match        https://*.monachat.jp/
 // ==/UserScript==
 
 (function (script, source){
+  localStorage.removeItem('monachat');
   script.appendChild(document.createTextNode('!' + source + '()'));
   document.querySelector('head').appendChild(script);
 })(document.createElement('script'), function () {
 
   var pluginWindow = window.debug ? {postMessage: console.log.bind(console)} : (window.opener || (window.parent && parent === window ? {postMessage: a => 0} : parent));
-  localStorage.removeItem('monachat');
   window.onbeforeunload = () => '閉じますか';
 
   var log = document.createElement('textarea');
