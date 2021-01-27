@@ -22,4 +22,8 @@
 
 このuserscriptを導入すると、window.openやiframeを使ってもなちゃとを表示することで、データの送受信ができるようになります。
 
-入退室と発言の受信はwindowのmessageイベントで出来ます。発言の送信はpostMessage({type: 'COM', attr: {cmt: '発言'}})で出来ます。
+入退室と発言の受信は呼び出し元windowのmessageイベントで出来ます。発言の送信はpostMessage({type: 'COM', attr: {cmt: '発言'}})で出来ます。
+
+Webコンソール等で直接スクリプトを実行できる場合は、Unimona.ondataでデータ受信、Unimona.send(comment)で発言できます。
+
+スクリプトで発言した場合は吹き出しが白くなりますが、相手には見えています。

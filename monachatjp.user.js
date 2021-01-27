@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     monachatjp-userscript
-// @version  4
+// @version  5
 // @run-at document-start
 // @grant    none
 // @match        https://monachat.jp/
@@ -13,7 +13,11 @@
   document.querySelector('head').appendChild(script);
 })(document.createElement('script'), function () {
 
-  var pluginWindow = window.debug ? {postMessage: console.log.bind(console)} : (window.opener || (window.parent && parent === window ? {postMessage: a => 0} : parent));
+  var ondata = function (obj) {
+    (window.debug ? {postMessage: console.log.bind(console)} : (window.opener || (window.parent && parent === window ? {postMessage: a => 0} : parent))).postMessage(obj, '*');
+    if (window.Unimona && typeof Unimona.ondata === 'function')
+      Unimona.ondata(obj);
+  };
   window.onbeforeunload = () => '閉じますか';
 
   var log = document.createElement('textarea');
@@ -55,7 +59,7 @@
       var id = obj.attr && obj.attr.id, text = {ENTER: 'が入室', EXIT: 'が退室', COM: '：　' + (obj.attr && obj.attr.cmt)}[obj.type];
       if (text)
         addLog(member[id].name + member[id].trip + ' (ID:' + id + ')' + text + ' [' + (new Date()).toLocaleString() + ']');
-      pluginWindow.postMessage(obj, '*');
+      ondata(obj);
     };
     (this.init = () => {
       member = {};
@@ -177,13 +181,14 @@
       };
     }
     document.body.style.textAlign = 'center';
-    pluginWindow.postMessage({type: 'load'});
+    ondata({type: 'load'});
   });
   addEventListener('unload', function () {
-    pluginWindow.postMessage({type: 'close'});
+    ondata({type: 'close'});
   });
   addEventListener('message', function (e) {
     if (e.data.type === 'COM')
       chat.sendComment(e.data.attr.cmt);
   });
+  window.Unimona = {send: chat.sendComment.bind(chat)};
 });
